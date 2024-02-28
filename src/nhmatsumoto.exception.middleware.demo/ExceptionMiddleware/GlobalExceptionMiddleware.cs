@@ -32,7 +32,7 @@ namespace nhmatsumoto.exception.middleware.demo.ExceptionMiddleware
             _logger.LogError($"Erro não tratado: {context.Exception.InnerException}");
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
@@ -47,7 +47,7 @@ namespace nhmatsumoto.exception.middleware.demo.ExceptionMiddleware
 
             _logger.LogError(message, context.Response);
 
-            return context.Response.WriteAsync(message);
+            await context.Response.WriteAsync(message);
         }
     }
 }
